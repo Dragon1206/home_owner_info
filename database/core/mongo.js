@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const {logger} = require('../../logger/logger');
 
 /**
  * @class Mongo
@@ -27,9 +28,9 @@ class Mongo {
           useNewUrlParser: process.env.MONGO_URL_PARSER,
           useUnifiedTopology: process.env.MONGO_TOPOLOGY,
         };
-        console.log(mongoConfig)
         mongoose.connect(process.env.MONGO_URI + process.env.MONGO_DB, mongoConfig)
             .then((connection) => {
+              logger.info(`getMongoConn [Coonection successfull]`);
               resolve(connection);
             }).catch((error) => {
               reject(error);

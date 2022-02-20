@@ -2,6 +2,7 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
 const axios = require('axios').default;
+const {logger} = require('../../logger/logger');
 const googleApi = process.env.GOOGLE_API;
 const googleApiKey = process.env.GOOGLE_KEY;
 /**
@@ -26,11 +27,12 @@ class ResourceProcess {
               data.Root.Customer[i].GeoLocation = await this.getGeoLocation(url);
             }
             const object = {data};
+            logger.info(`readXmlData [parsing complete]`);
             resolve(object);
           });
         });
       } catch (error) {
-        console.log(error);
+        logger.error(error);
         reject(error);
       }
     });
@@ -49,6 +51,7 @@ class ResourceProcess {
         const timeDiff = getUtcDate.getTime() - customerDateOfBirth.getTime();
         /** Number of seconds in a year without counting leap years */
         const getDayDiff = (timeDiff / 31536000000).toFixed(0);
+        logger.debug(`getAge [complete ${getDayDiff}]`);
         return [getDayDiff];
       } else {
         return [null];
@@ -82,6 +85,7 @@ class ResourceProcess {
         }
       }
       url += googleApiKey;
+      logger.debug(`getGeoLocationUrl [complete ${url}]`);
       return url;
     } catch (error) {
       return null;
@@ -97,11 +101,14 @@ class ResourceProcess {
     try {
       const coordinates = await axios.get(object);
       if (coordinates.data.status === 'REQUEST_DENIED') {
+        logger.warn(`getGeoLocation [complete: null]`);
         return [null];
       } else {
+        logger.info(`getGeoLocation [complete: ${coordinates.data.results}]`);
         return coordinates.data.results;
       }
     } catch (error) {
+      logger.error(error);
       return error;
     }
   }

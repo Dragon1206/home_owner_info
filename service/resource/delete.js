@@ -1,5 +1,6 @@
 'use strict';
 const {model} = require('../../database/core/model');
+const {logger} = require('../../logger/logger');
 /**
  * @class
  */
@@ -21,12 +22,15 @@ class ResourceDelete {
             $in: input,
           },
         };
+        logger.info(`deleteResource query:[${query}]`);
         userSchema.deleteMany(query).then((result) => {
+          logger.info(result);
           resolve(result);
         }).catch((error) => {
-          console.log(error); reject(error);
+          logger.error(error); reject(error);
         });
       } catch (error) {
+        logger.error(error);
         reject(error);
       }
     });

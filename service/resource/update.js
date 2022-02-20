@@ -1,4 +1,5 @@
 'use strict';
+const {logger} = require('../../logger/logger');
 const {model} = require('../../database/core/model');
 /**
  * @class
@@ -33,15 +34,18 @@ class ResourceUpdate {
           update.PostalCode = [req.PostalCode] : null;
         req.Country !== null && req.Country !== undefined ?
           update.Country = [req.Country] : null;
+        logger.info(`updateResource: filter:[${filter}], update:[${update}]`);
         userSchema.updateMany(filter, update)
             .then((result) => {
               resolve(result);
+              logger.info(result);
             })
             .catch((error) => {
+              logger.error(error);
               reject(error);
             });
       } catch (error) {
-        console.log(error);
+        logger.error(error);
         reject(error);
       }
     });

@@ -18,3 +18,16 @@ Update document
 Delete Resource
 By ID
 By multiple IDs
+
+Note:
+XML file resides in the resource folder
+Google API key for getting geolocation can be added in the environment varialbes
+For testing this application uses JEST and mongodb-memory-server
+Mongo server we used in this application is mongoAtlas. Credentials are removed.
+Request validation is not performed
+
+To run the application 
+    npm run start
+
+To run the test
+    npm run test

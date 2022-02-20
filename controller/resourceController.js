@@ -4,6 +4,7 @@ const {resourceCreate} = require('../service/resource/create');
 const {resourceRead} = require('../service/resource/read');
 const {resourceUpdate} = require('../service/resource/update');
 const {resourceDelete} = require('../service/resource/delete');
+const {logger} = require('../logger/logger');
 
 /**
  * class
@@ -16,7 +17,7 @@ class ResourceController {
    */
   readXmlData(req, res) {
     const fileLocation = `./resource/sample.xml`;
-    console.log(fileLocation);
+    logger.debug(fileLocation);
     resourceProcess.readXmlData(fileLocation)
         .then(resourceCreate.saveResource)
         .then((result) => {

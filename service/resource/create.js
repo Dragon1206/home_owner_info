@@ -1,6 +1,6 @@
 'use strict';
-
 const {model} = require('../../database/core/model');
+const {logger} = require('../../logger/logger');
 /**
  * @class
  */
@@ -20,14 +20,17 @@ class ResourceCreate {
               if (result.length > 0) {
                 resolve(true);
               } else {
-              // eslint-disable-next-line prefer-promise-reject-errors
+                logger.error(`saveResource [no data inserted]`);
+                // eslint-disable-next-line prefer-promise-reject-errors
                 reject('no data inserted');
               }
             })
             .catch((error) => {
+              logger.error(error);
               reject(error);
             });
       } catch (error) {
+        logger.error(error);
         reject(error);
       }
     });

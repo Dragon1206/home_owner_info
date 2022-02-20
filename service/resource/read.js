@@ -1,5 +1,6 @@
 'use strict';
 const {model} = require('../../database/core/model');
+const {logger} = require('../../logger/logger');
 /**
  * @class
  */
@@ -16,7 +17,7 @@ class ResourceRead {
         // eslint-disable-next-line new-cap
         const search = {};
         req.CustomerId !== null && req.CustomerId !== undefined ?
-        search.CustomerId = [req.CustomerId] : null;
+          search.CustomerId = [req.CustomerId] : null;
         req.ContactName !== null && req.ContactName !== undefined ?
           search.ContactName = [req.ContactName] : null;
         req.DateOfBirth !== null && req.DateOfBirth !== undefined ?
@@ -36,13 +37,14 @@ class ResourceRead {
         req.Age !== null && req.Age !== undefined ?
           search.Age = [req.Age] : null;
         const userSchema = model.getUserSchema();
+        logger.info(`findData search:[${search}]`);
         userSchema.find(search, {_id: 0}).then((result) => {
           resolve(result);
         }).catch((error) => {
-          console.log(error); reject(error);
+          logger.error(error); reject(error);
         });
       } catch (error) {
-        console.log(error);
+        logger.error(error);
         reject(error);
       }
     });
