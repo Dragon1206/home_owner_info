@@ -1,3 +1,4 @@
+
 ### Homeowner Information
 
 #### Create Resource:
@@ -20,6 +21,23 @@ Update document
 By ID
 By multiple IDs
 
+#### Services:
+1. GET: `API: http://127.0.0.1:3000/sample/get/xml` [Loads the XML file]
+2. POST: `API: http://127.0.0.1:3000/sample/search` [Finds the document]
+> Request structure:
+
+    { "CustomerId": <String> [required }
+
+4. POST: `API: http://127.0.0.1:3000/sample/update` [Update the document based on CustomerId]
+> Request structure:
+
+     { "CustomerId": <String>, [required] "ContactName": <String>, [optional] "DateOfBirth": <String>, [optional] "Phone": <String>  [optional] }
+
+5. POST: `API: http://127.0.0.1:3000/sample/delete` [Delete the document based on single or multiple CustomerIds]
+> Request structure:
+
+    {"CustomerId": [Array of string] [required] }
+
 #### Note:
 1. XML file resides in the resource folder
 2. Google API key for getting geolocation can be added in the environment varialbes
@@ -30,3 +48,5 @@ By multiple IDs
 > [npm run start]
 7. To run the test 
 >[npm run test]
+
+
