@@ -31,7 +31,7 @@ By multiple IDs
 4. POST: `API: http://127.0.0.1:3000/sample/update` [Update the document based on CustomerId]
 > Request structure:
 
-     { "CustomerId": <String>, [required] "ContactName": <String>, [optional] "DateOfBirth": <String>, [optional] "Phone": <String>  [optional] }
+     { "CustomerId": <String> [required], "ContactName":<String> [optional], "DateOfBirth":<String> [optional], "Phone":<String> [optional], "Address":<String> [optional], "City":<String> [optional], "Region":<String> [optional], "PostalCode":<String> [optional], "Country":<String> [optional], "Age":<String> [optional] }
 
 5. POST: `API: http://127.0.0.1:3000/sample/delete` [Delete the document based on single or multiple CustomerIds]
 > Request structure:
